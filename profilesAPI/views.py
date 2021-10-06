@@ -33,7 +33,7 @@ def Createprofile(request):
 
 
 
-@api_view(['PUT'])
+@api_view(['POST'])
 def updateprofile(request, pk):
     profiles = Profile.objects.get(user=pk)
     serializer = ProfileSerializer(instance=profiles, data=request.data)
