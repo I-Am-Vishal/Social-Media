@@ -1,0 +1,95 @@
+{% extends 'main/base.html' %}
+{% block title %}MyInvites{% endblock title %}
+
+{% block content %}
+
+{% if is_empty %}
+<div class="ui floating message">
+    <p>You do not have any invitations yet...</p>
+</div>
+{% endif %}
+
+    {% for item in qs %}
+
+   
+    <!-- <div class="ui cards">
+        <div class="card">
+          <div class="content">
+            <img class="right floated ui small image" src="{{item.avatar.url}}">
+            <a href="{{item.get_absolute_url}}">
+            <div class="header">
+                {{item.user}}
+            </div></a>
+            <div class="meta">
+              {{ item.user.first_name }}            
+            </div>
+            <div class="description">
+              Wants to be your friend on Fakebook
+            </div>
+          </div>
+          <div class="extra content">
+            
+                <a href="{{item.get_absolute_url}}">
+                    <button class="ui primary button mb-5 w-big">See profile</button>
+                </a>
+
+                <form action="{% url 'profiles:accept-invite' %}" method="POST">
+                    {% csrf_token %}
+                        <input type="hidden" name="profile_pk" value={{item.pk}}>
+                    <button class="ui positive basic button mb-5 w-big" type="submit">
+                        <i class="check icon"></i>Approve
+                    </button>
+                </form>
+                <form action="{% url 'profiles:reject-invite' %}" method="POST">
+                    {% csrf_token %}
+                        <input type="hidden" name="profile_pk" value={{item.pk}}>
+                    <button class="ui negetive basic button mb-5 w-big" type="submit">
+                        <i class="close icon"></i>Decline
+                    </button>
+                </form>
+           
+          </div>
+        </div> -->
+  
+       
+
+
+    <div class="ui segment">
+        <div class=" ui grid">
+            <div class="row">
+                <div class="three wide column">
+                    <img class = "ui small circular image" src="{{item.avatar.url}}" alt="">
+                </div>
+                <div class="thirteen wide column">
+
+                    <h3>{{item.user}}</h3>
+                    <p>{{item.Bio}}</p><br>
+
+                    <a href="{{item.get_absolute_url}}">
+                        <button class="ui primary button mb-5 w-big">See profile</button>
+                    </a>
+
+                    <form action="{% url 'profiles:accept-invite' %}" method="POST">
+                        {% csrf_token %}
+                            <input type="hidden" name="profile_pk" value={{item.pk}}>
+                        <button class="ui positive basic button mb-5 w-big" type="submit">
+                            <i class="check icon"></i>Accept invite
+                        </button>
+                    </form>
+
+                    <form action="{% url 'profiles:reject-invite' %}" method="POST">
+                        {% csrf_token %}
+                            <input type="hidden" name="profile_pk" value={{item.pk}}>
+                        <button class="ui negetive basic button mb-5 w-big" type="submit">
+                            <i class="close icon"></i>Reject invite
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endfor %}
+
+{% endblock content %}

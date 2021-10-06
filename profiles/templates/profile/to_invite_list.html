@@ -1,0 +1,67 @@
+{% extends 'main/base.html' %}
+{% block title %}Invite Friends{% endblock title %}
+
+{% block content %}
+
+
+{% for item in qs %}
+
+{% if item.user not in rel_receiver and item.user not in rel_sender %}
+<div class="ui segment">
+    <div class=" ui grid">
+        <div class="row">
+            <div class="three wide column">
+                <img class="ui small circular image" src="{{item.avatar.url}}" alt="">
+            </div>
+            <div class="thirteen wide column">
+
+                <h3>{{item.user}}</h3>
+                <p>{{item.Bio}}</p><br>
+
+                <a href="{{item.get_absolute_url}}">
+                    <button class="ui primary button mb-5 w-big">See profile</button>
+                </a>
+
+                <form action="{% url 'profiles:send-invite' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="profile_pk" value={{item.pk}}>
+
+                    <button class="ui positive basic button mb-5 w-big" type="submit">
+                        <i class="plus square icon"></i>Add to friends
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% elif item.user in rel_receiver and request.user not in item.friends.all %}
+
+
+<div class="ui segment">
+    <div class=" ui grid">
+        <div class="row">
+            <div class="three wide column">
+                <img class="ui small circular image" src="{{item.avatar.url}}" alt="">
+            </div>
+            <div class="thirteen wide column">
+
+                <h3>{{item.user}}</h3>
+                <p>{{item.Bio}}</p><br>
+
+                <a href="{{item.get_absolute_url}}">
+                    <button class="ui primary button mb-5 w-big">See profile</button>
+                </a><br>
+
+                <button class="ui disabled button mb-5 w-big"><i class="user icon"></i>Waiting for approval</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endfor %}
+
+
+{% endblock content %}

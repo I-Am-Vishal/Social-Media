@@ -1,0 +1,36 @@
+{% extends 'main/base.html' %}
+{% block title %}Home{% endblock title %}
+
+
+{% block content %}
+{% if user.is_authenticated %}
+
+<div class="ui success message">
+  <i class="close icon"></i>
+  <div class="header">
+    Login was successful Welcome to FakeBook! {{user}}.
+  </div>
+  <p>This is a place where you can make friends and socialise your lonely life</p>
+</div>
+
+  
+{% else %}
+
+
+<div class="ui success message">
+  <i class="close icon"></i>
+  <div class="header">
+    You are currently not logged in
+  </div>
+  <p>Please login to view and edit content on the Fakebook network</p>
+</div>
+
+
+{% endif %}
+{% endblock content %}
+
+{% block scripts %}
+<script>
+  
+</script>
+{% endblock scripts %}
